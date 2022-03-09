@@ -55,7 +55,7 @@
 
             Console.WriteLine($"\r\n{Grid.Get(_playerOne, _playerTwo)}");
 
-            if (_tiedGame)
+            if (_tiedGame && !_gameWon)
                 Console.WriteLine("The game has been tied!");
             else
                 Console.WriteLine($"You have won, {_activePlayer.Name}!");
