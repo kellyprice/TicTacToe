@@ -24,7 +24,7 @@
                 if (_playerOne.State.Count() > 1)
                     Console.WriteLine($"\r\n{Grid.Get(_playerOne, _playerTwo)}");
 
-                Console.WriteLine($"It's your turn, {_activePlayer.Name}! Enter you move.");
+                Console.WriteLine($"It's your turn, {_activePlayer.Name}! Enter your move.");
 
                 var position = Console.ReadLine();
 
