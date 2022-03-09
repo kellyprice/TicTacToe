@@ -5,7 +5,8 @@
         private Player _playerOne = new Player() { Name = "Player One", Symbol = "X" };
         private Player _playerTwo = new Player() { Name = "Player Two", Symbol = "O" };
         private Player _activePlayer;
-        private bool _gameOver = false;
+        private bool _gameWon = false;
+        private bool _tiedGame = false;
 
         public Game()
         {
@@ -16,7 +17,7 @@
         {
             Console.WriteLine(Instructions.Get());
 
-            while (!_gameOver)
+            while (!_gameWon && !_tiedGame)
             {
                 var state = _playerOne.State.Union(_playerTwo.State);
 
@@ -43,15 +44,21 @@
 
                 Turn.AddMove(position, _activePlayer);
 
-                _gameOver = HasWon.Check(_activePlayer);
+                state = _playerOne.State.Union(_playerTwo.State);
 
-                if (!_gameOver)
+                _gameWon = HasWon.Check(_activePlayer);
+                _tiedGame = TiedGame.Check(state);
+
+                if (!_gameWon)
                     _activePlayer = _activePlayer == _playerOne ? _playerTwo : _playerOne;
             }
 
             Console.WriteLine($"\r\n{Grid.Get(_playerOne, _playerTwo)}");
 
-            Console.WriteLine($"You have won, {_activePlayer.Name}!");
+            if (_tiedGame)
+                Console.WriteLine("The game has been tied!");
+            else
+                Console.WriteLine($"You have won, {_activePlayer.Name}!");
         }
     }
 }
